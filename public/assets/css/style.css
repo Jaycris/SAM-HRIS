@@ -1,0 +1,129 @@
+.bg-auth
+{
+    background-image:url(../images/auth-bg.jpg);
+    background-size:cover;
+}
+
+.btn-bg-color
+{
+    background-color: #000080;
+    border: solid 1px #000080;
+    height: 40px;
+}
+
+.btn-bg-color:hover
+{
+    background-color: #19602e;
+    border: solid 1px #19602e;
+    height: 40px;
+}
+
+.btn-bg-color:focus
+{
+    background-color: #808284;
+    border: solid 1px #808284;
+    height: 40px;
+}
+
+.flex-buttons {
+    display: flex;
+    justify-content: center; 
+}
+
+
+.title-login
+{
+    color: #19602e;
+}
+
+.error-alert
+{
+    margin: auto;
+    border: solid 1px #dcdcdc;
+    background-color: #dcdcdc;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.closeTab-right
+{
+    text-align: right;
+}
+
+.required-asterisk
+{
+    color: red;
+}
+
+#current-time {
+    font-size: 48px;
+}
+.tbldes
+{
+    padding-left: 28%;
+}
+
+#current-date {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.pointer 
+{
+    cursor: pointer;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+}
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+}
+.error {
+    color: red;
+}
+
+
+@media only screen and (min-width: 360px)
+{
+    .tbldes
+    {
+        padding-left: 10%;
+    }
+}
+
+
+@media only screen and (min-width: 480px)
+{
+    .tbldes
+    {
+        padding-left: 21%;
+    }
+}
+
+@media only screen and (min-width: 600px)
+{
+    .tbldes
+    {
+        padding-left: 23%;
+    }
+}
+
+@media only screen and (min-width: 768px)
+{
+    .tbldes
+    {
+        padding-left: 28%;
+    }
+}
+
+
