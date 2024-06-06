@@ -71,11 +71,27 @@
     <script>
         function updateTime() {
             var now = new Date();
-            var time = now.toLocaleTimeString();
-            var date = now.toLocaleDateString();
+            var options = { 
+                timeZone: 'Asia/Manila', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            var time = new Intl.DateTimeFormat('en-US', options).format(now);
+            
+            var dateOptions = { 
+                timeZone: 'Asia/Manila', 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit' 
+            };
+            var date = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
+            
             document.getElementById('clock').textContent = time;
             document.getElementById('date').textContent = date;
         }
+
         setInterval(updateTime, 1000);
         window.onload = updateTime;
 
