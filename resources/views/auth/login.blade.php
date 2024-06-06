@@ -8,7 +8,7 @@
             </a>
 
             <div class="mt-8 text-center">
-                <h4 class="mb-1 text-custom-500 text-base-500 title-login">Welcome to SAM Portal!</h4>
+                <h4 class="mb-1 text-custom-500 text-base-500 title-login">Welcome to PHREMS!</h4>
                 <p class="text-slate-500 dark:text-zink-200">Sign in to continue.</p>
             </div>
             @if(Session::has('error'))
