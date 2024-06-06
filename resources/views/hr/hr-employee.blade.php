@@ -28,7 +28,7 @@
                                 @endif
                             </div>
                         <div class="shrink-0">
-                            <a href="#" data-modal-target="addEmployeeModal" type="button"
+                            <a href="#!" data-modal-target="addEmployeeModal" type="button"
                                 class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20 add-employee"><i
                                     data-lucide="plus" class="inline-block size-4"></i> <span
                                     class="align-middle">Add Employee</span></a>
@@ -73,10 +73,10 @@
                                 <tr>
                                     <td hidden class="id">{{ $employee->id }}</td>
                                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 ID">
-                                        <a href="#!" class="emp_id transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600">{{ $employee->emp_id }}</a>
+                                        <a href="#" class="emp_id transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600">{{ $employee->emp_id }}</a>
                                     </td>
                                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Name">
-                                        <a href="#!" class="flex items-center gap-3">
+                                        <a href="#" class="flex items-center gap-3">
                                             <div class="avatar w-6 h-6 rounded-full shrink-0 bg-slate-100">
                                                 <img src="{{ URL::to('/assets/images/employee/'. $employee->avatar) }}" alt="" class="h-6 rounded-full">
                                             </div>
@@ -109,16 +109,28 @@
                                     </td>
                                     <td hidden class="emp_type">{{ $employee->work_place }}</td>
                                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Phone">
-                                        {{ $employee->emp_status }}
+                                        @if ($employee->emp_status == 'Hired')
+                                        <span class="px-2.5 py-0.5 inline-block text-xs font-medium rounded border bg-green-100 border-transparent text-green-500 dark:bg-green-500/20 dark:border-transparent">
+                                                {{ $employee->emp_status }}
+                                        </span>
+                                        @elseif ($employee->emp_status == 'Resigned')
+                                        <span class="px-2.5 py-0.5 inline-block text-xs font-medium rounded border bg-red-100 border-transparent text-red-500 dark:bg-red-500/20 dark:border-transparent">
+                                                {{ $employee->emp_status }}
+                                        </span>
+                                        @elseif ($employee->emp_status == 'Terminated')
+                                        <span class="px-2.5 py-0.5 inline-block text-xs font-medium rounded border bg-gray-100 border-transparent text-gray-500 bg-gray-900/20 dark:border-transparent">
+                                                {{ $employee->emp_status }}
+                                        </span>
+                                        @endif
                                     </td>
                                     <td hidden class="emp_status">{{ $employee->emp_status }}</td>
                                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Action">
                                         <div class="flex gap-3">
-                                            <a class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"
-                                                href="#"><i data-lucide="eye" class="inline-block size-3"></i> </a>
-                                            <a href="#" data-modal-target="updateModal" data-id="'.$employee->id.'"
+                                            <!-- <a class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"
+                                                href="#"><i data-lucide="eye" class="inline-block size-3"></i> </a> -->
+                                            <a href="#!" data-modal-target="updateModal" data-id="'.$employee->id.'"
                                                 class="employeeUpdate flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="pencil" class="size-4"></i></a>
-                                            <a href="#" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
+                                            <a href="#!" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
                                                 class="employeeDelete flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 remove-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="trash-2" class="size-4"></i></a>
                                         </div>
                                     </td>

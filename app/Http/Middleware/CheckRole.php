@@ -19,7 +19,7 @@ class CheckRole
         if(Auth::check()) {
             $user = Auth::user();
 
-            if($user->employee->designationType->designation == 'Chief Executive Officer'|| $user->employee->designationType->designation == 'Chief Operation Officer' || $user->employee->designationType->designation == 'Human Resources') {
+            if($user->employee->designationType->designation == 'Chief Executive Officer'|| $user->employee->designationType->designation == 'Chief Operating Officer' || $user->employee->designationType->designation == 'Human Resources') {
                 
                 return $next($request);
                 

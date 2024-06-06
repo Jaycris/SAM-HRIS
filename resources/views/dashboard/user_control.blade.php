@@ -28,7 +28,7 @@
                                 @endif
                             </div>
                         <div class="shrink-0">
-                            <a href="#" data-modal-target="addUserModal" type="button"
+                            <a href="#!" data-modal-target="addUserModal" type="button"
                                 class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20 add-employee"><i
                                     data-lucide="plus" class="inline-block size-4"></i> <span
                                     class="align-middle">Add User</span></a>
@@ -94,9 +94,9 @@
                                     <td hidden class="userStatus">{{ $user->user_status }}</td>
                                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Action">
                                         <div class="flex gap-3">
-                                            <a href="#" data-modal-target="updateModal" data-id="'.$employee->id.'"
+                                            <a href="#!" data-modal-target="updateModal" data-id="'.$employee->id.'"
                                                 class="userUpdate flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="pencil" class="size-4"></i></a>
-                                            <a href="#" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
+                                            <a href="#!" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
                                                 class="userDelete flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 remove-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="trash-2" class="size-4"></i></a>
                                         </div>
                                     </td>

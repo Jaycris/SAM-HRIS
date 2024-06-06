@@ -10,7 +10,7 @@
                 </div>
                 <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
                     <li class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1  before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
-                        <a href="#!" class="text-slate-400 dark:text-zink-200">HR Management</a>
+                        <a href="" class="text-slate-400 dark:text-zink-200">HR Management</a>
                     </li>
                     <li class="text-slate-700 dark:text-zink-100">
                         Designation
@@ -34,7 +34,7 @@
                             </div>
                             <div class="xl:col-span-2 xl:col-start-11">
                                 <div class="ltr:lg:text-right rtl:lg:text-left">
-                                    <a href="#" type="button" data-modal-target="addDesignationModal" class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"><i data-lucide="plus" class="inline-block size-4"></i> <span class="align-middle">Add Designation</span></a>
+                                    <a href="#!" type="button" data-modal-target="addDesignationModal" class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"><i data-lucide="plus" class="inline-block size-4"></i> <span class="align-middle">Add Designation</span></a>
                                 </div>
                             </div>
                         </div><!--col grid-->
@@ -56,9 +56,9 @@
                                         <td hidden class="designation">{{ $designation->designation }}</td>
                                         <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zinc-500 text-right">
                                         <div class="inline-flex gap-3">
-                                            <a href="#" data-modal-target="updateModal" data-id="'.$employee->id.'"
+                                            <a href="#!" data-modal-target="updateModal" data-id="'.$employee->id.'"
                                                 class="DesignationUpdate flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="pencil" class="size-4"></i></a>
-                                            <a href="#" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
+                                            <a href="#!" data-modal-target="deleteModal" data-id="'.$employee->id.'" 
                                                 class="employeeDelete flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 remove-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="trash-2" class="size-4"></i></a>
                                         </div>
                                     </td>

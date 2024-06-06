@@ -58,7 +58,7 @@ class LoginController extends Controller
 
                 // Check if user status is active
                 if ($user->user_status == 'Active') {
-                    if (in_array($designation, ['Chief Executive Officer', 'Chief Operation Officer', 'Human Resources'])) {
+                    if (in_array($designation, ['Chief Executive Officer', 'Chief Operating Officer', 'Human Resources'])) {
     
                         return redirect()->intended('home');
                     }else {

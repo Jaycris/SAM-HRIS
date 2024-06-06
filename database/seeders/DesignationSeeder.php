@@ -16,7 +16,11 @@ class DesignationSeeder extends Seeder
     public function run(): void
     {
         DB::table('des_types')->insert([
+            'designation'            => 'Chief Executive Officer',
+            'designation'            => 'Chief Operating Officer',
+            'designation'            => 'Human Resources',
             'designation'            => 'Web Developer',
-        ]);
+            'designation'            => 'Web Designer',
+            ]);
     }
 }

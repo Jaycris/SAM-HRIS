@@ -21,6 +21,7 @@ class EmployeeSeeder extends Seeder
             'mname'             => 'Ebrado',
             'lname'             => 'Cristobal',
             'email'             => 'developer@gmail.com',
+            'avatar'            => 'photo_defaults.png'
         ]);
     }
 }

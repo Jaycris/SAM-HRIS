@@ -91,18 +91,19 @@
                                 </button>
                                 <div class="absolute z-50 hidden p-4 ltr:text-left rtl:text-right bg-white rounded-md shadow-md !top-4 dropdown-menu min-w-[14rem] dark:bg-zink-600" aria-labelledby="dropdownMenuButton">
                                     <h6 class="mb-2 text-sm font-normal text-slate-500 dark:text-zink-300">Welcome to SAM</h6>
-                                    <a href="#!" class="flex gap-3 mb-3">
-                                        <div class="relative inline-block shrink-0">
+                                    <div class="flex gap-3 mb-3">
+                                        <a href="#" class="relative inline-block shrink-0">
                                             <div class="rounded bg-slate-100 dark:bg-zink-500">
                                                 <img src="{{ URL::to('/assets/images/' . Auth::user()->employee->avatar) }}" alt="Employee Avatar" class="w-12 h-12 rounded">
                                             </div>
                                             <span class="-top-1 ltr:-right-1 rtl:-left-1 absolute w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full dark:border-zink-600"></span>
-                                        </div>
+                                        </a>
                                         <div>
                                             <h6 class="mb-1 text-15">{{ Auth::user()->employee->fullName() }}</h6>
+                                            <p class="text-sm text-slate-500 dark:text-zink-300">{{ Auth::user()->employee->emp_id }}</p>
                                             <p class="text-slate-500 dark:text-zink-300">{{ Auth::user()->employee->designationType->designation }}</p>
                                         </div>
-                                    </a>
+                                    </div>
                                     <ul>
                                         <li>
                                             <a class="block ltr:pr-4 rtl:pl-4 py-1.5 text-base font-medium transition-all duration-200 ease-linear text-slate-600 dropdown-item hover:text-custom-500 focus:text-custom-500 dark:text-zink-200 dark:hover:text-custom-500 dark:focus:text-custom-500" href="#">
