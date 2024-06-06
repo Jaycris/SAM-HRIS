@@ -324,6 +324,17 @@
             <a href="#!" class="w-full text-white transition-all duration-200 ease-linear bg-red-500 border-red-500 btn hover:text-white hover:bg-red-600 hover:border-red-600 focus:text-white focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-100 active:text-white active:bg-red-600 active:border-red-600 active:ring active:ring-red-100">Buy Now</a>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href="#"]').forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    window.location.href = '/coming-soon';
+                });
+            });
+        });
+    </script>
 
     <script src="{{ URL::to('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
     <script src="{{ URL::to('assets/libs/%40popperjs/core/umd/popper.min.js') }}"></script>

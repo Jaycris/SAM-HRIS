@@ -12,6 +12,7 @@ use App\Http\Controllers\EmployeeTypeController;
 use App\Http\Controllers\UsermanagementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\WorkShiftController;
+use App\Http\Controllers\ComingSoonController;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
 use App\Http\Controllers\Auth\WelcomeController;
 
@@ -108,3 +109,4 @@ Route::controller(AttendanceController::class)->group(function () {
 
 
 Route::view('/forbidden', 'forbidden')->name('forbidden');
+Route::fallback([ComingSoonController::class, 'index']);

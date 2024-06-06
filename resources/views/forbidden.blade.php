@@ -2,7 +2,7 @@
 @section('content')
 <div class="mb-0 border-none shadow-none lg:w-[500px] card bg-white/70 dark:bg-zink-500/70">
         <div class="!px-10 !py-12 card-body">
-            <a href="index-1.html">
+            <a href="#">
                 <img src="assets/images/logo-light.png" alt="" class="hidden h-6 mx-auto dark:block">
                 <img src="assets/images/logo-dark.png" alt="" class="block h-6 mx-auto dark:hidden">
             </a>
