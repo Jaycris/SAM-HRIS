@@ -40,20 +40,20 @@ class UsermanagementController extends Controller
     {
         DB::beginTransaction();
 
-        try {
+        // try {
 
             // Check if user already exists by employee id, and email
             $existingUser = User::where('emp_id', $request->employeeId)
-                                        ->where('email', $request->email)
-                                        ->first();
+                                ->where('email', $request->email)
+                                ->first();
 
             if ($existingUser) {
                 DB::rollBack();
-                return back()->with('error', 'User already Exist.');
+                return back()->with('error', 'User already exists.');
             }
 
-            $dt     = Carbon::now()->format('d M, Y D');
-            $pass   = Str::random(30);
+            $dt = Carbon::now()->format('Y-m-d'); // Correct date format
+            $pass = Str::random(30);
 
             $users = new User;
             $users->emp_id          = $request->employeeId;
@@ -63,17 +63,17 @@ class UsermanagementController extends Controller
             $users->user_status     = "Inactive";
             $users->save();
 
-            // Send the Welcome notification
-            $users->notify(new WelcomeNotification);
+            // Send the Welcome notification with a 7-day expiration
+            $users->sendWelcomeNotification();
 
             DB::commit();
 
 
             return redirect()->back();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back()->with('error', 'Failed to create user.');
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return back()->with('error', 'Failed to create user.');
+        // }
     }
 
     public function showSetPasswordForm(User $user, Request $request)

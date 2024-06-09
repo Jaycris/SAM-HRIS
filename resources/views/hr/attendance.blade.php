@@ -52,7 +52,7 @@
                                             <tr>
                                                 <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                                                         {!! \Carbon\Carbon::parse($attendance->attendance_date)->format('d M, Y') ?? 'N/A' !!}
-                                                    <span class="px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-white border-slate-400 text-slate-500 dark:bg-zinc-700 dark:border-zinc-400 dark:text-zinc-200 ltr:ml-1 rtl:mr-1 align-middle">
+                                                    <span class="px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-white border-slate-400 text-slate-500 dark:bg-zink-700 dark:border-zink-400 dark:text-zink-200 ltr:ml-1 rtl:mr-1 align-middle">
                                                         {!! \Carbon\Carbon::parse($attendance->attendance_date)->format('D') !!}
                                                     </span>                                    
                                                 </td>

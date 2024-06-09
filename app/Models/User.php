@@ -44,8 +44,9 @@ class User extends Authenticatable
     //     $this->save();
     // }
 
-    public function sendWelcomeNotification(Carbon $validUntil)
+    public function sendWelcomeNotification()
     {
+        $validUntil = Carbon::now()->addDays(7);
         $this->notify(new WelcomeNotification($validUntil));
     }
     

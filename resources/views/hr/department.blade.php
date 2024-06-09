@@ -41,7 +41,7 @@
                         </div><!--col grid-->
                     <div class="overflow-x-auto">
                         <table class="w-full whitespace-nowrap">
-                            <thead class="ltr:text-left rtl:text-right bg-slate-100 text-slate-500 dark:text-zinc-200 dark:bg-zinc-600">
+                            <thead class="ltr:text-left rtl:text-right bg-slate-100 text-slate-500 dark:text-zink-200 dark:bg-zink-600">
                                 <tr class="*:px-3.5 *:py-2.5 *:font-semibold *:border-b *:border-slate-200 *:dark:border-zink-500">
                                     <th>No.</th>
                                     <th>Department Name</th>
@@ -50,12 +50,12 @@
                             </thead>
                             <tbody>
                                 @foreach($dep as $department)
-                                    <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zinc-500">
+                                    <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zink-500">
                                         <td class="transition-all duration-200 ease-linear">{{ $department->id }}</td>
                                         <td hidden class="id">{{ $department->id }}</td>
                                         <td class="transition-all duration-200 ease-linear">{{ $department->department }}</td>
                                         <td hidden class="department">{{ $department->department }}</td>
-                                        <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zinc-500 text-right">
+                                        <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 text-right">
                                         <div class="inline-flex gap-3">
                                             <a href="#!" data-modal-target="updateModal" data-id="'.$employee->id.'"
                                                 class="DepartmentUpdate flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="pencil" class="size-4"></i></a>

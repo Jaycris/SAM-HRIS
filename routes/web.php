@@ -62,8 +62,6 @@ Route::controller(LoginController::class)->group(function () {
 Route::controller(UsermanagementController::class)->group(function () {
     Route::get('/navbar', 'navbar')->middleware('auth')->name('navbar');
     Route::get('/user/list', 'index')->middleware('auth','isAdmin')->name('userList');
-    Route::get('password/set/{token}', 'showSetPasswordForm')->name('welcome');
-    Route::post('password/set', 'setPassword')->name('password.update');
     Route::post('/user/save', 'saveUser')->middleware('auth','isAdmin')->name('userSave');
     Route::post('/user/update', 'updateUser')->middleware('auth','isAdmin')->name('userUpdate');
     Route::post('/user/delete', 'deleteUser')->middleware('auth','isAdmin')->name('userDelete');

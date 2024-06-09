@@ -11,7 +11,11 @@
                 <h4 class="mb-1 text-custom-500 text-base-500 title-login">Welcome to PHREMS!</h4>
                 <p class="text-slate-500 dark:text-zink-200">Sign in to continue.</p>
             </div>
-            @if(Session::has('error'))
+            @if(Session::has('success'))
+                <div class="text-sm text-green-500 error-alert" role="alert">
+                    {{ Session::get('success') }}
+                </div>
+            @elseif(Session::has('error'))
                 <div class="text-sm text-red-500 error-alert" role="alert">
                     {{ Session::get('error') }}
                 </div>
@@ -55,6 +59,13 @@
     </div>
 
     @section('script')
-       
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#success-message').fadeOut('slow');
+                $('#error-message').fadeOut('slow');
+            }, 3000); // 3 seconds delay
+        });
+    </script>
     @endsection
 @endsection

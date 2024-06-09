@@ -12,12 +12,14 @@ class WelcomeNotification extends Notification
 {
     use Queueable;
 
+    protected $validUntil;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($validUntil)
     {
-        //
+        $this->validUntil = $validUntil;
     }
 
     /**
@@ -36,18 +38,18 @@ class WelcomeNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $actionUrl = URL::temporarySignedRoute(
-            'set-password', now()->addMinutes(60), ['user' => $notifiable->id]
+            'set-password', $this->validUntil, ['user' => $notifiable->id]
         );
         
         return (new MailMessage)
-                    ->subject('Welcome to SAM HR Information System!')
+                    ->subject('Welcome to SAM PHREMS!')
                     ->greeting('Greetings!')
-                    ->line('Welcome to SAM HR Information System. We are excited to have you on our team.')
-                    ->line('You are receiving this email because an account has been created to grant you access to the SAM HRIS Portal.')
+                    ->line('Welcome to SAM PHREMS (Payroll, HR, and Employee Management System). We are excited to have you on our team.')
+                    ->line('You are receiving this email because an account has been created to grant you access to the SAM PHREMS.')
                     ->line('Please click the button below to set your password.')
                     ->action('Set Password', $actionUrl)
                     ->line('Thank you!')
-                    ->salutation('Regards,  ' . PHP_EOL . 'SAM HRIS Team');
+                    ->salutation('Regards,  ' . PHP_EOL . 'SAM PHREMS Team');
                     
     }
 

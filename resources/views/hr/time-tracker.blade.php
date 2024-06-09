@@ -22,7 +22,7 @@
                             data-choices="" data-choices-search-false="" name="breakType" id="break_type_start">
                             <option value="">Select Break</option>
                             <option value="lunch">Lunch Break</option>
-                            <option value="coffe">Coffe Break</option>
+                            <option value="coffee">Coffee Break</option>
                         </select>
                         <div style="margin-bottom: 5px;"></div>
                     </div>
@@ -57,10 +57,10 @@
                 </div>
                 <div id="message" class="mt-4 text-md text-center">
                     @if(session('success'))
-                        <p class="text-green-500 error-alert">{{ session('success') }}</p>
+                        <p id="success-message" class="text-green-500 error-alert">{{ session('success') }}</p>
                     @endif
                     @if(session('error'))
-                        <p class="text-red-500 error-alert">{{ session('error') }}</p>
+                        <p id="error-message" class="text-red-500 error-alert">{{ session('error') }}</p>
                     @endif
                 </div>
             </div>
@@ -119,6 +119,13 @@
         document.getElementById('breakStartForm').addEventListener('submit', function(event) {
             var employeeId = document.getElementById('employee-id-break-start').value;
             var breakType = document.getElementById('break_type_start').value;
+        });
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#success-message').fadeOut('slow');
+                $('#error-message').fadeOut('slow');
+            }, 3000); // 3 seconds delay
         });
     </script>
     @endsection

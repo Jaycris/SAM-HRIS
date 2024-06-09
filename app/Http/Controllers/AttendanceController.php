@@ -59,26 +59,44 @@ class AttendanceController extends Controller
             return back()->with('error', 'Invalid Employee ID.');
         }
 
-        // Get today's date
+        // Get today's and yesterday's date and the current time
         $today = Carbon::now()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
+        $currentTime = Carbon::now();
+
 
         // Check for existing attendance record for today or yesterday (for graveyard shift)
         $existingAttendance = Attendance::where('emp_id', $request->emp_id)
-                                        ->where(function ($query) use ($today) {
+                                        ->where(function ($query) use ($today, $yesterday) {
                                             $query->where('attendance_date', $today)
-                                            ->orWhere('attendance_date', Carbon::yesterday()->toDateString());
+                                                  ->orWhere('attendance_date', $yesterday);
                                         })
                                         ->first();
-                                        
+
         // If there's an existing record and no punch out time, prevent punch in
         if ($existingAttendance && is_null($existingAttendance->timeOut)) {
             return back()->with('error', 'You must punch out before punching in again.');
         }
 
+        // Check if the employee has already punched in today
+        if ($existingAttendance && $existingAttendance->attendance_date === $today) {
+            return back()->with('error', 'You have already punched in for this working period.');
+        }
+
+
+        // Check if the employee has already punched in for the previous shift (yesterday)
+        if ($existingAttendance && $existingAttendance->attendance_date === $yesterday && !is_null($existingAttendance->timeOut)) {
+            // Allow punch in only after 12:00 PM if the previous shift ended before 12:00 PM
+            $noonToday = Carbon::parse($today . ' 12:00:00');
+            if ($currentTime < $noonToday) {
+                return back()->with('error', 'You can punch in again after 12:00 PM.');
+            }
+        }
+
         // Create or update the attendance record with punch in time
         $attendance = Attendance::updateOrCreate(
             ['attendance_date' => $today, 'emp_id' => $request->emp_id],
-            ['timeIn' => Carbon::now()->toTimeString()]
+            ['timeIn' => $currentTime->toTimeString()]
         );
 
         return back()->with('success', 'Punched in successfully.');
@@ -91,29 +109,36 @@ class AttendanceController extends Controller
             return back()->with('error', 'Invalid Employee ID.');
         }
 
-        // Get today's date
+        // Get today's and yesterday's date
         $today = Carbon::now()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
 
-        // Check for existing attendance record for today or yesterday (for graveyard shift)
-        $attendance = Attendance::where('emp_id', $request->emp_id)
-                                ->where(function ($query) use ($today) {
-                                    $query->where('attendance_date', $today)
-                                          ->orWhere('attendance_date', Carbon::yesterday()->toDateString());
-                                })
-                                ->first();
+        // Check for existing attendance records for today and yesterday (for graveyard shift)
+        $attendanceToday = Attendance::where('emp_id', $request->emp_id)
+                                    ->where('attendance_date', $today)
+                                    ->first();
 
-        if (!$attendance || !$attendance->timeIn) {
-            return back()->with('error', 'Cannot Punch Out without Punching In.');
+        $attendanceYesterday = Attendance::where('emp_id', $request->emp_id)
+                                        ->where('attendance_date', $yesterday)
+                                        ->first();
+
+        // Determine which attendance record to update
+        $attendanceToUpdate = null;
+
+        if ($attendanceToday && $attendanceToday->timeIn && is_null($attendanceToday->timeOut)) {
+            $attendanceToUpdate = $attendanceToday;
+        } elseif ($attendanceYesterday && $attendanceYesterday->timeIn && is_null($attendanceYesterday->timeOut)) {
+            $attendanceToUpdate = $attendanceYesterday;
         }
 
-        if ($attendance->timeOut) {
-            return back()->with('error', 'You have already punched out.');
+        if (is_null($attendanceToUpdate)) {
+            return back()->with('error', 'Cannot Punch Out without Punching In or already Punched Out.');
         }
 
         // Update the attendance record with punch out time
-        $attendance->update(['timeOut' => Carbon::now()->toTimeString()]);
+        $attendanceToUpdate->update(['timeOut' => Carbon::now()->toTimeString()]);
 
-        return back()->with('success', 'Punched out successfully.');
+         return back()->with('success', 'Punched out successfully.');
     }
 
     public function breakStart(Request $request)
