@@ -6,7 +6,7 @@
             <div class="clock text-4xl mb-2" id="clock"></div>
             <div class="date text-xl mb-4" id="date"></div>
             <div id="attendance-form">
-                <a href="#">
+                <a href="https://samph.company/">
                     <img src="assets/images/Logo.png" alt="" class="hidden h-28 mx-auto dark:block">
                     <img src="assets/images/Logo.png" alt="" class="block h-28 mx-auto dark:hidden">
                 </a>

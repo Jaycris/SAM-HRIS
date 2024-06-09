@@ -30,7 +30,9 @@ class UsermanagementController extends Controller
     {
         $users = User::paginate(10);
         $userCnt = User::count();
-        $employees = Employee::all();
+        
+        // Get employees without users
+        $employees = Employee::whereDoesntHave('user')->get();
 
         return view('dashboard.user_control', compact('userCnt', 'users', 'employees'));
     }

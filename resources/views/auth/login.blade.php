@@ -2,7 +2,7 @@
 @section('content')
     <div class="mb-0 w-screen lg:mx-auto lg:w-[500px] card shadow-lg border-none relative">
         <div class="!px-10 !py-12 card-body">
-            <a href="#!">
+            <a href="https://samph.company/">
                 <img src="assets/images/Logo.png" alt="" class="hidden h-28 mx-auto dark:block">
                 <img src="assets/images/Logo.png" alt="" class="block h-28 mx-auto dark:hidden">
             </a>
@@ -12,11 +12,11 @@
                 <p class="text-slate-500 dark:text-zink-200">Sign in to continue.</p>
             </div>
             @if(Session::has('success'))
-                <div class="text-sm text-green-500 error-alert" role="alert">
+                <div id="success-message" class="text-sm text-green-500 error-alert" role="alert">
                     {{ Session::get('success') }}
                 </div>
             @elseif(Session::has('error'))
-                <div class="text-sm text-red-500 error-alert" role="alert">
+                <div id="error-message" class="text-sm text-red-500 error-alert" role="alert">
                     {{ Session::get('error') }}
                 </div>
             @endif
