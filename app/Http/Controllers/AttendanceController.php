@@ -66,30 +66,35 @@ class AttendanceController extends Controller
 
 
         // Check for existing attendance record for today or yesterday (for graveyard shift)
-        $existingAttendance = Attendance::where('emp_id', $request->emp_id)
-                                        ->where(function ($query) use ($today, $yesterday) {
-                                            $query->where('attendance_date', $today)
-                                                  ->orWhere('attendance_date', $yesterday);
-                                        })
-                                        ->first();
+        $existingAttendanceToday = Attendance::where('emp_id', $request->emp_id)
+                                            ->where('attendance_date', $today)
+                                            ->first();
 
-        // If there's an existing record and no punch out time, prevent punch in
-        if ($existingAttendance && is_null($existingAttendance->timeOut)) {
+        $existingAttendanceYesterday = Attendance::where('emp_id', $request->emp_id)
+                                                ->where('attendance_date', $yesterday)
+                                                ->first();
+
+        // If there's an existing record for today with no punch out, prevent punch in
+        if ($existingAttendanceToday && is_null($existingAttendanceToday->timeOut)) {
+            return back()->with('error', 'You must punch out before punching in again.');
+        }
+
+        // If there's an existing record for yesterday with no punch out, prevent punch in (graveyard shift)
+        if ($existingAttendanceYesterday && is_null($existingAttendanceYesterday->timeOut)) {
             return back()->with('error', 'You must punch out before punching in again.');
         }
 
         // Check if the employee has already punched in today
-        if ($existingAttendance && $existingAttendance->attendance_date === $today) {
+        if ($existingAttendanceToday) {
             return back()->with('error', 'You have already punched in for this working period.');
         }
 
-
         // Check if the employee has already punched in for the previous shift (yesterday)
-        if ($existingAttendance && $existingAttendance->attendance_date === $yesterday && !is_null($existingAttendance->timeOut)) {
-            // Allow punch in only after 12:00 PM if the previous shift ended before 12:00 PM
-            $noonToday = Carbon::parse($today . ' 12:00:00');
+        if ($existingAttendanceYesterday && !is_null($existingAttendanceYesterday->timeOut)) {
+            // Allow punch in only after 12:00 PM if the previous shift ended before 1:00 PM
+            $noonToday = Carbon::parse($today . ' 13:00:00');
             if ($currentTime < $noonToday) {
-                return back()->with('error', 'You can punch in again after 12:00 PM.');
+                return back()->with('error', 'You can punch in again after 13:00 PM.');
             }
         }
 
