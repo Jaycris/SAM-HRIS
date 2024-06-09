@@ -89,7 +89,7 @@
                                         <img src="{{ URL::to('/assets/images/'. Auth::user()->employee->avatar) }}" alt="" class="w-[37.5px] h-[37.5px] rounded-full">
                                     </div>
                                 </button>
-                                <div class="absolute z-50 hidden p-4 ltr:text-left rtl:text-right bg-white rounded-md shadow-md !top-4 dropdown-menu min-w-[14rem] dark:bg-zink-600" aria-labelledby="dropdownMenuButton">
+                                <div class="absolute z-50 hidden p-4 ltr:text-left rtl:text-right bg-white rounded-md shadow-md !top-4 dropdown-menu custom-dropdown-width dark:bg-zink-600" aria-labelledby="dropdownMenuButton">
                                     <h6 class="mb-2 text-sm font-normal text-slate-500 dark:text-zink-300">Welcome to SAM</h6>
                                     <div class="flex gap-3 mb-3">
                                         <a href="#" class="relative inline-block shrink-0">

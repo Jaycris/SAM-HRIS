@@ -57,6 +57,10 @@
     color: red;
 }
 
+.custom-dropdown-width {
+    min-width: 16rem; /* Adjust this value as needed */
+}
+
 #current-time {
     font-size: 48px;
 }

@@ -4,7 +4,7 @@
     <div class="mb-0 border-none shadow-none lg:w-[500px] card bg-white/70 dark:bg-zink-500/70">
         <div class="!px-10 !py-12 card-body">
             <div id="countDownText">
-                <a href="#">
+                <a href="https://samph.company/">
                     <img src="assets/images/logo-light.png" alt="" class="hidden h-6 mx-auto dark:block">
                     <img src="assets/images/logo-dark.png" alt="" class="block h-6 mx-auto dark:hidden">
                 </a>
@@ -12,7 +12,7 @@
                     <img src="assets/images/coming-soon-logo.png" alt="" class="h-64 mx-auto">
                 </div>
                 <div class="mt-8 text-center">
-                    <h4 class="mb-4 text-2xl text-purple-500 dark:text-purple-500">Coming Soon ...</h4>
+                    <h4 class="mb-4 text-2xl title-login text-custom-500 dark:text-purple-500">Coming Soon ...</h4>
                     <p class="mb-6 text-slate-500 dark:text-zink-200">Thank you for your patience! We are working hard to bring you new and exciting features. Stay tuned as we finalize the details and ensure everything is perfect. We appreciate your understanding and can't wait to share this with you soon.</p>
                     <div style="margin-bottom: 5px;"></div>
                     @if(in_array(Auth::user()->employee->designationType->designation, ['Chief Executive Officer', 'Chief Operation Officer', 'Human Resources']))
