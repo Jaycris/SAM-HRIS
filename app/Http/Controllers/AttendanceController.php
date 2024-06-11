@@ -75,26 +75,26 @@ class AttendanceController extends Controller
                                                 ->first();
 
         // If there's an existing record for today with no punch out, prevent punch in
-        if ($existingAttendanceToday && is_null($existingAttendanceToday->timeOut)) {
-            return back()->with('error', 'You must punch out before punching in again.');
-        }
+        // if ($existingAttendanceToday && is_null($existingAttendanceToday->timeOut)) {
+        //     return back()->with('error', 'You must punch out before punching in again.');
+        // }
 
         // If there's an existing record for yesterday with no punch out, prevent punch in (graveyard shift)
-        if ($existingAttendanceYesterday && is_null($existingAttendanceYesterday->timeOut)) {
-            return back()->with('error', 'You must punch out before punching in again.');
-        }
+        // if ($existingAttendanceYesterday && is_null($existingAttendanceYesterday->timeOut)) {
+        //     return back()->with('error', 'You must punch out before punching in again.');
+        // }
 
         // Check if the employee has already punched in today
         if ($existingAttendanceToday) {
             return back()->with('error', 'You have already punched in for this working period.');
         }
 
-        // Check if the employee has already punched in for the previous shift (yesterday)
+        // Check if the employee has already punched in for the previous shift (yesterday) and punched out
         if ($existingAttendanceYesterday && !is_null($existingAttendanceYesterday->timeOut)) {
-            // Allow punch in only after 12:00 PM if the previous shift ended before 1:00 PM
+            // Allow punch in only after 1:00 PM if the previous shift ended before 1:00 PM (graveyard shift check)
             $noonToday = Carbon::parse($today . ' 13:00:00');
-            if ($currentTime < $noonToday) {
-                return back()->with('error', 'You can punch in again after 13:00 PM.');
+            if ($currentTime < $noonToday && $existingAttendanceYesterday->timeOut < $noonToday->toTimeString()) {
+                return back()->with('error', 'You can punch in again after 1:00 PM.');
             }
         }
 
@@ -207,29 +207,50 @@ class AttendanceController extends Controller
 
     public function breakEnd(Request $request)
     {
+        // Validate the employee ID
         $employee = Employee::where('emp_id', $request->emp_id)->first();
         if (!$employee) {
             return back()->with('error', 'Invalid Employee ID.');
         }
 
-        $attendance = Attendance::where('attendance_date', Carbon::now()->toDateString())
-                                ->where('emp_id', $request->emp_id)
-                                ->first();
+        // Get today's and yesterday's date
+        $today = Carbon::now()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
+
+        // Check for existing attendance records for today and yesterday (for graveyard shift)
+        $attendanceToday = Attendance::where('emp_id', $request->emp_id)
+                                    ->where('attendance_date', $today)
+                                    ->first();
+
+        $attendanceYesterday = Attendance::where('emp_id', $request->emp_id)
+                                        ->where('attendance_date', $yesterday)
+                                        ->first();
 
 
-        if (!$attendance || !$attendance->timeIn) {
-            return back()->with('error', 'Cannot end Break without Punching In.');
+        // Determine which attendance record to use
+        $attendanceToUpdate = null;
+
+        if ($attendanceToday && $attendanceToday->timeIn && is_null($attendanceToday->timeOut)) {
+            $attendanceToUpdate = $attendanceToday;
+        } elseif ($attendanceYesterday && $attendanceYesterday->timeIn && is_null($attendanceYesterday->timeOut)) {
+            $attendanceToUpdate = $attendanceYesterday;
         }
 
-        $break = Breaks::where('attendance_id', $attendance->id)
+        if (is_null($attendanceToUpdate)) {
+            return back()->with('error', 'Cannot end Break without Punching In.');
+        }
+    
+        // Find the break to end
+        $break = Breaks::where('attendance_id', $attendanceToUpdate->id)
                         ->whereNull('end_time')
                         ->orderBy('start_time', 'desc')
                         ->first();
-
+    
         if (!$break) {
             return back()->with('error', 'Cannot end break without starting it.');
         }
 
+        // End the break
         $break->end_time = Carbon::now()->toTimeString();
         $break->save();
 
