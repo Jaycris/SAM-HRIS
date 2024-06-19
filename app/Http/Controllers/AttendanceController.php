@@ -157,12 +157,17 @@ class AttendanceController extends Controller
         $today = Carbon::now()->toDateString();
         $yesterday = Carbon::yesterday()->toDateString();
 
-        $attendance = Attendance::where('emp_id', $request->emp_id)
-                                ->where(function ($query) use ($today, $yesterday) {
-                                    $query->where('attendance_date', $today)
-                                          ->orWhere('attendance_date', $yesterday);
-                                })
-                                ->first();
+        // Fetch attendance records for today and yesterday
+        $attendanceToday = Attendance::where('emp_id', $request->emp_id)
+                                    ->where('attendance_date', $today)
+                                    ->first();
+
+        $attendanceYesterday = Attendance::where('emp_id', $request->emp_id)
+                                        ->where('attendance_date', $yesterday)
+                                        ->first();
+
+        // Determine the relevant attendance record
+        $attendance = $attendanceToday ?? $attendanceYesterday;
 
         if (!$attendance || !$attendance->timeIn) {
             return back()->with('error', 'Cannot start Break without Punching In.');
@@ -179,19 +184,19 @@ class AttendanceController extends Controller
                                         ->where('type', 'lunch')
                                         ->first();
 
-            if ($existingLunchBreak) {
+            if ($existingLunchBreak && Carbon::parse($existingLunchBreak->created_at)->isToday()) {
                 return back()->with('error', 'Lunch Break has already been taken for this working day.');
             }
         }
 
         // Check if the break type already started for today or yesterday (graveyard shift)
         $existingBreak = Breaks::where('attendance_id', $attendance->id)
-                               ->where('type', $breakType)
-                               ->whereNull('end_time')
-                               ->first();
+                                ->where('type', $breakType)
+                                ->whereNull('end_time')
+                                ->first();
 
         if ($existingBreak) {
-            return back()->with('error', ucfirst($breakType) . ' Break has already been started.');
+        return back()->with('error', ucfirst($breakType) . ' Break has already been started.');
         }
 
         $breakStartTime = Carbon::now()->toTimeString();
