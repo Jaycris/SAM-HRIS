@@ -30,7 +30,8 @@
                                     </div><!--end col-->
                                     <div class="xl:col-span-3">
                                         <form id="filterForm" action="{{ route('dateSearch') }}" method="GET">
-                                            <input type="text" name="date" id="datepicker" class="form-input datepicker border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" data-provider="flatpickr" data-date-format="m,d,Y" data-range-date="true" placeholder="Select Date" onchange="this.form.submit()">
+                                            @csrf
+                                            <input type="text" name="date" id="datepicker" class="form-input datepicker border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" data-provider="flatpickr" data-date-format="m,d,Y" data-range-date="true" placeholder="Select Date" value="{{ request('date') }}" onchange="this.form.submit()">
                                         </form>                        
                                     </div><!--end col-->
                                 </div><!--end grid-->
@@ -82,12 +83,12 @@
                                 </div>
                                 <div class="flex flex-col items-center gap-4 px-4 mt-4 md:flex-row" id="pagination-element">
                                     <div class="grow">
-                                        <p class="text-slate-500 dark:text-zink-200">Showing <b><b>{{ $attendances->lastItem() }}</b> of <b class="total-records">{{ $attendances->total() }}</b> Results
+                                        <p class="text-slate-500 dark:text-zink-200">Showing <b>{{ $attendances->lastItem() }}</b> of <b class="total-records">{{ $attendances->total() }}</b> Results
                                     </div>
 
                                     <div class="col-sm-auto mt-sm-0">
                                         <div class="flex gap-2 pagination-wrap justify-content-center">
-                                            {{ $attendances->links('pagination.custom') }}
+                                            {{ $attendances->appends(request()->query())->links('pagination.custom') }}
                                         </div>
                                     </div>
                                 </div>

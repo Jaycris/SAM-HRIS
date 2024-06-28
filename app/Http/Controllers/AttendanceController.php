@@ -14,8 +14,8 @@ class AttendanceController extends Controller
     public function index()
     {
         $employees = Employee::with('attendances')->get();
-        $attendances = Attendance::paginate(10);
-        
+        $attendances = Attendance::orderBy('attendance_date', 'desc')->paginate(10);
+
         return view('hr.attendance', compact('employees','attendances'));
     }
 
@@ -24,8 +24,11 @@ class AttendanceController extends Controller
         //Get the authenticated user
         $user = Auth::user();
 
-        //Get the authenticated user's attendance
-        $attendances = Attendance::where('emp_id', $user->emp_id)->paginate(10);
+        // Get the authenticated user's attendance, ordered by the latest first
+        $attendances = Attendance::where('emp_id', $user->emp_id)
+                                ->orderBy('attendance_date', 'desc')
+                                ->paginate(10);
+
 
         return view('hr.my-attendance', compact('attendances'));
     }
@@ -34,10 +37,31 @@ class AttendanceController extends Controller
     {
         $date = Carbon::parse($request->input('date'));
         
-        $attendances = Attendance::whereDate('attendance_date', $date)->paginate(10);
+        $attendances = Attendance::whereDate('attendance_date', $date)
+                                 ->orderBy('attendance_date', 'desc')
+                                 ->paginate(10);
+    
+        // You may also load employees if needed
         $employees = Employee::with('attendances')->get();
+    
+        return view('hr.attendance', compact('employees', 'attendances'));
+    }
 
-        return view('hr.attendance', compact('employees','attendances'));
+    public function empDateFilter(Request $request)
+    {
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Parse the date from the request
+        $date = Carbon::parse($request->input('date'));
+
+        // Get the authenticated user's attendance records for the specified date
+        $attendances = Attendance::where('emp_id', $user->emp_id)
+                                ->whereDate('attendance_date', $date)
+                                ->orderBy('attendance_date', 'desc')
+                                ->paginate(10);
+
+        return view('hr.my-attendance', compact('attendances'));
     }
 
     public function timeTracker(Request $request)

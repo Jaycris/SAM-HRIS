@@ -103,6 +103,7 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::post('/break-start', 'breakStart')->middleware('ip.check')->name('attendanceBreakStart');
     Route::post('/break-end', 'breakEnd')->middleware('ip.check')->name('attendanceBreakEnd');
     Route::get('/attendance/date', 'date')->middleware('auth')->name('dateSearch');
+    Route::get('/attendance/date-filter', 'empDateFilter')->middleware('auth')->name('emp.date');
 });
 
 

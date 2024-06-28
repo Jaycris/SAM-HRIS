@@ -21,9 +21,13 @@ class HRController extends Controller
             $empID = $today . rand(10, 99);
         } while($empIDs->contains($empID));
 
+        // Order employees by the latest data
+        $employees = Employee::with('designationType')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(10);
+
         // $emp_ID = $empID;
 
-        $employees = Employee::with('designationType')->paginate(10);
         $empCnt         = Employee::count();
         $designations   = Designation::all();
         $departments    = Department::all();
