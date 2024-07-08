@@ -14,6 +14,7 @@ class AttendanceController extends Controller
     public function index()
     {
         $employees = Employee::with('attendances')->get();
+        $attendances = Attendance::paginate(10);
         $attendances = Attendance::orderBy('attendance_date', 'desc')->paginate(10);
 
         return view('hr.attendance', compact('employees','attendances'));
